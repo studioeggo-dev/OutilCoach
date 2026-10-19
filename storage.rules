@@ -1,0 +1,71 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules for THRYVE Multi-Tenant Platform
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Default deny: any path not explicitly allowed is blocked
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isPlatformAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'platform_admin' ||
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'platform_admin'
+      );
+    }
+
+    function isValidImage() {
+      return request.resource.size <= 5 * 1024 * 1024 &&
+             request.resource.contentType.matches('image/(jpeg|png|webp)');
+    }
+
+    // Verify workspace ownership:
+    // 1. Deterministic match: workspaceId equals 'ws_' + coach UID
+    // 2. Or cross-service Firestore verification: workspace doc ownerId matches coach UID
+    function isWorkspaceOwner(workspaceId) {
+      return isAuthenticated() && (
+        workspaceId == ('ws_' + request.auth.uid) ||
+        (
+          firestore.exists(/databases/(default)/documents/workspaces/$(workspaceId)) &&
+          firestore.get(/databases/(default)/documents/workspaces/$(workspaceId)).data.ownerId == request.auth.uid
+        )
+      );
+    }
+
+    function isWorkspaceMember(workspaceId) {
+      return isWorkspaceOwner(workspaceId) || isPlatformAdmin();
+    }
+
+    // 1. Platform shared system catalog
+    // Read: authenticated coaches only
+    // Write: platform administrators only
+    match /catalog/system/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isPlatformAdmin() && isValidImage();
+    }
+
+    // 2. Private cabinet catalog
+    // Strictly isolated to the workspace owner and platform admins
+    match /workspaces/{workspaceId}/catalog/{fileName} {
+      // Read access: strictly restricted to workspace coach
+      allow read: if isWorkspaceMember(workspaceId);
+
+      // Create / Update access: strictly restricted to workspace coach with metadata verification
+      allow create, update: if isWorkspaceMember(workspaceId) &&
+                               isValidImage() &&
+                               request.resource.metadata != null &&
+                               request.resource.metadata.coachId == request.auth.uid &&
+                               request.resource.metadata.workspaceId == workspaceId;
+
+      // Delete access: strictly restricted to workspace coach
+      allow delete: if isWorkspaceMember(workspaceId);
+    }
+  }
+}

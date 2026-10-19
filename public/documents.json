@@ -1,0 +1,36 @@
+{
+  "assocolor": {
+    "homme": [
+      "Associations_couleurs_homme-2.jpg",
+      "Associations_couleurs_homme-3.jpg",
+      "Associations_couleurs_homme-4.jpg",
+      "Associations_couleurs_homme-5.jpg",
+      "Associations_couleurs_homme-6.jpg"
+    ],
+    "femme": [
+      "Associations_couleurs_femme-2.jpg",
+      "Associations_couleurs_femme-3.jpg",
+      "Associations_couleurs_femme-4.jpg",
+      "Associations_couleurs_femme-5.jpg",
+      "Associations_couleurs_femme-6.jpg"
+    ]
+  },
+  "style": {
+    "homme": [
+      "Recette_de_style_homme-1.jpg",
+      "Recette_de_style_homme-2.jpg",
+      "Recette_de_style_homme-3.jpg",
+      "Recette_de_style_homme-4.jpg",
+      "Recette_de_style_homme-5.jpg",
+      "Recette_de_style_homme-6.jpg"
+    ],
+    "femme": [
+      "Recette_de_style_femme-3.jpg",
+      "Recette_de_style_femme-12.jpg",
+      "Recette_de_style_femme-27.jpg",
+      "Recette_de_style_femme-42.jpg",
+      "Recette_de_style_femme-55.jpg",
+      "Recette_de_style_femme-72.jpg"
+    ]
+  }
+}

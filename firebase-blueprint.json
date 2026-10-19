@@ -1,0 +1,166 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile containing authentication and role details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["platform_admin", "coach"] },
+        "activeWorkspaceId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "Workspace": {
+      "title": "Workspace",
+      "description": "Multi-tenant workspace for a coach and their clients",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "brand": {
+          "type": "object",
+          "properties": {
+            "displayName": { "type": "string" },
+            "tagline": { "type": "string" },
+            "logoUrl": { "type": "string" },
+            "primaryColor": { "type": "string" },
+            "secondaryColor": { "type": "string" },
+            "accentColor": { "type": "string" },
+            "clientWelcomeMessage": { "type": "string" }
+          },
+          "required": ["displayName", "primaryColor"]
+        },
+        "enabledModuleIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "status": { "type": "string", "enum": ["active", "trial", "suspended"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "ownerId", "brand", "enabledModuleIds", "createdAt"]
+    },
+    "Client": {
+      "title": "Client",
+      "description": "Client profile associated with a workspace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workspaceId": { "type": "string" },
+        "coachId": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "status": { "type": "string", "enum": ["invited", "active", "completed", "archived"] },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "workspaceId", "coachId", "firstName", "lastName", "email", "createdAt"]
+    },
+    "DiagnosticAssignment": {
+      "title": "DiagnosticAssignment",
+      "description": "Diagnostic invitation and submission assignment for a client",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workspaceId": { "type": "string" },
+        "coachId": { "type": "string" },
+        "clientId": { "type": "string" },
+        "moduleId": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "in_progress", "completed", "expired"] },
+        "shareToken": { "type": "string" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "responses": { "type": "object" },
+        "resultsSummary": { "type": "object" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "workspaceId", "coachId", "clientId", "moduleId", "title", "status", "shareToken", "expiresAt", "createdAt"]
+    },
+    "ImageItem": {
+      "title": "ImageItem",
+      "description": "Visual catalog image item for image coaching and diagnostic boards",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workspaceId": { "type": "string" },
+        "scope": { "type": "string", "enum": ["system", "workspace"] },
+        "title": { "type": "string" },
+        "displayName": { "type": "string" },
+        "originalFilename": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "styleUniverseIds": { "type": "array", "items": { "type": "string" } },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "storagePath": { "type": "string" },
+        "downloadUrl": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "metadata": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      },
+      "required": ["id", "scope", "title", "displayName", "originalFilename", "category", "storagePath", "downloadUrl", "createdAt", "createdBy"]
+    },
+    "StyleUniverse": {
+      "title": "StyleUniverse",
+      "description": "Stylistic universe reference for visual diagnostics and moodboards",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "keyTraits": { "type": "array", "items": { "type": "string" } },
+        "dominantColors": { "type": "array", "items": { "type": "string" } },
+        "isSystem": { "type": "boolean" },
+        "workspaceId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "code", "name", "isSystem", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Individual user profiles"
+    },
+    "/workspaces/{workspaceId}": {
+      "schema": "Workspace",
+      "description": "Workspaces containing multi-tenant configuration and custom branding"
+    },
+    "/workspaces/{workspaceId}/clients/{clientId}": {
+      "schema": "Client",
+      "description": "Workspace client directory"
+    },
+    "/workspaces/{workspaceId}/assignments/{assignmentId}": {
+      "schema": "DiagnosticAssignment",
+      "description": "Diagnostic assignments and submissions"
+    },
+    "/workspaces/{workspaceId}/images/{imageId}": {
+      "schema": "ImageItem",
+      "description": "Private visual images uploaded by the cabinet coach"
+    },
+    "/systemImages/{imageId}": {
+      "schema": "ImageItem",
+      "description": "Platform-wide system visual images for styling and moodboards"
+    },
+    "/styleUniverses/{universeId}": {
+      "schema": "StyleUniverse",
+      "description": "Stylistic universes and themes reference"
+    }
+  }
+}

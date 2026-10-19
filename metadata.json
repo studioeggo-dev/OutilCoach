@@ -1,0 +1,6 @@
+{
+  "name": "THRYVE — Plateforme SaaS de Coaching & Diagnostics",
+  "description": "Plateforme SaaS professionnelle multi-tenant dédiée aux coachs, aux diagnostics personnalisés et à l'accompagnement de la transformation individuelle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

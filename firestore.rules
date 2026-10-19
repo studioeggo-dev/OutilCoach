@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isPlatformAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'platform_admin' || 
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         getUserData().role == 'platform_admin')
+      );
+    }
+
+    function isWorkspaceOwner(workspaceId) {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/workspaces/$(workspaceId)) &&
+        get(/databases/$(database)/documents/workspaces/$(workspaceId)).data.ownerId == request.auth.uid;
+    }
+
+    function isWorkspaceMember(workspaceId) {
+      return isWorkspaceOwner(workspaceId) || isPlatformAdmin();
+    }
+
+    // User profiles (strictly for coach accounts & platform administrators)
+    match /users/{userId} {
+      allow get: if isAuthenticated() && (request.auth.uid == userId || isPlatformAdmin());
+      allow list: if isPlatformAdmin();
+      allow create: if isAuthenticated() && request.auth.uid == userId && (
+        request.resource.data.role == 'coach'
+      );
+      allow update: if isAuthenticated() && (
+        isPlatformAdmin() || (
+          request.auth.uid == userId &&
+          // Prevent privilege escalation to platform_admin
+          request.resource.data.role == resource.data.role
+        )
+      );
+      allow delete: if isPlatformAdmin();
+    }
+
+    // Workspaces
+    match /workspaces/{workspaceId} {
+      // Allow single doc get for client portal (dynamic branding) & authenticated coaches
+      allow get: if true;
+      // Prevent directory traversal / listing all workspaces in the multi-tenant database
+      allow list: if isPlatformAdmin();
+      
+      allow create: if isAuthenticated() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if isAuthenticated() && (
+        isPlatformAdmin() || (
+          resource.data.ownerId == request.auth.uid &&
+          request.resource.data.ownerId == resource.data.ownerId
+        )
+      );
+      allow delete: if isPlatformAdmin();
+
+      // Workspace clients subcollection: strictly private to coach & platform_admin
+      match /clients/{clientId} {
+        allow read, write: if isWorkspaceMember(workspaceId);
+      }
+
+      // Workspace diagnostic assignments subcollection
+      match /assignments/{assignmentId} {
+        // Coach can list all assignments in their workspace; non-members CANNOT list
+        allow list: if isWorkspaceMember(workspaceId);
+
+        // Individual assignment read (get): coach or client with valid assignment
+        allow get: if isWorkspaceMember(workspaceId) || (
+          resource.data.status in ['pending', 'in_progress', 'completed']
+        );
+
+        // Client submission: can ONLY update responses and mark completed, NO privilege escalation or tampering
+        allow update: if isWorkspaceMember(workspaceId) || (
+          resource.data.status in ['pending', 'in_progress'] &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'responses', 'resultsSummary', 'completedAt', 'updatedAt']) &&
+          request.resource.data.shareToken == resource.data.shareToken &&
+          request.resource.data.clientId == resource.data.clientId &&
+          request.resource.data.coachId == resource.data.coachId &&
+          request.resource.data.workspaceId == resource.data.workspaceId
+        );
+
+        // Creation & deletion strictly reserved to the workspace owner
+        allow create, delete: if isWorkspaceMember(workspaceId);
+      }
+
+      // Workspace private image catalog subcollection
+      match /images/{imageId} {
+        // Strictly private to coach of this workspace (and platform admin)
+        allow read, write: if isWorkspaceMember(workspaceId);
+      }
+    }
+
+    // System image catalog (Platform shared images for moodboards and style boards)
+    match /systemImages/{imageId} {
+      // Authenticated coaches can view system catalog images
+      allow read: if isAuthenticated();
+      // Platform administrator only can modify the global catalog
+      allow write: if isPlatformAdmin();
+    }
+
+    // Stylistic Universes Reference
+    match /styleUniverses/{universeId} {
+      // Authenticated coaches can read system and custom style universes
+      allow read: if isAuthenticated();
+
+      // Platform admin can write system universes; or coach can manage custom universes for their workspace
+      allow create: if isAuthenticated() && (
+        isPlatformAdmin() || (
+          request.resource.data.isSystem == false &&
+          request.resource.data.workspaceId != null &&
+          isWorkspaceMember(request.resource.data.workspaceId)
+        )
+      );
+      allow update, delete: if isAuthenticated() && (
+        isPlatformAdmin() || (
+          resource.data.isSystem == false &&
+          resource.data.workspaceId != null &&
+          isWorkspaceMember(resource.data.workspaceId)
+        )
+      );
+    }
+  }
+}
