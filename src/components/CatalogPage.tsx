@@ -275,18 +275,15 @@ export const CatalogPage: React.FC = () => {
       {/* Header with Title and Distinct Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-bold tracking-tight text-stone-900 font-serif">
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#352219] font-serif">
               Catalogue d'Images & Référentiel de Styles
             </h2>
-            <span 
-              className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full text-white"
-              style={{ backgroundColor: brand.primaryColor }}
-            >
+            <span className="badge-champagne text-[10px] px-2.5 py-0.5">
               Photothèque Métier
             </span>
           </div>
-          <p className="mt-1 text-sm text-stone-600">
+          <p className="mt-1 text-sm text-[#756154]">
             Importez et organisez les visuels de votre cabinet par lot ou par dossier. Le nom original de chaque fichier est conservé comme référence métier.
           </p>
         </div>
@@ -296,10 +293,9 @@ export const CatalogPage: React.FC = () => {
           {/* Button A: Importer des images */}
           <button
             onClick={() => multipleFilesInputRef.current?.click()}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-all hover:opacity-95 cursor-pointer"
-            style={{ backgroundColor: brand.primaryColor }}
+            className="btn-caramel px-4 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
           >
-            <FilePlus className="w-4 h-4" />
+            <FilePlus className="w-4 h-4 text-[#FFFDF9]" />
             <span>Importer des images</span>
           </button>
 
@@ -313,16 +309,16 @@ export const CatalogPage: React.FC = () => {
                 multipleFilesInputRef.current?.click();
               }
             }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 text-xs font-semibold shadow-xs transition-all cursor-pointer"
+            className="btn-ivoire px-4 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
           >
-            <FolderUp className="w-4 h-4 text-stone-600" />
+            <FolderUp className="w-4 h-4 text-[#A66538]" />
             <span>Importer un dossier</span>
           </button>
         </div>
       </div>
 
       {/* Control Bar / Filters */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200/80 shadow-xs space-y-3">
+      <div className="card-warm p-4 space-y-3">
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           {/* Search bar */}
           <div className="relative flex-1">

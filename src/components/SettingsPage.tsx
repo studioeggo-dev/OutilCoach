@@ -20,12 +20,12 @@ interface SettingsPageProps {
 }
 
 const PRESET_PALETTES = [
-  { name: 'Émeraude & Sérénité (Défaut)', primary: '#0F766E', secondary: '#F0FDFA', accent: '#D97706' },
+  { name: 'Champagne & Caramel (Recommandé)', primary: '#A66538', secondary: '#FBF6EF', accent: '#C68A51' },
+  { name: 'Émeraude & Sérénité', primary: '#0F766E', secondary: '#F0FDFA', accent: '#D97706' },
   { name: 'Bleu Minéral & Focus', primary: '#1E3A8A', secondary: '#EFF6FF', accent: '#3B82F6' },
   { name: 'Terre Cuite & Énergie', primary: '#C2410C', secondary: '#FFF7ED', accent: '#EA580C' },
   { name: 'Indigo & Profondeur', primary: '#4338CA', secondary: '#EEF2FF', accent: '#6366F1' },
   { name: 'Anthracite & Épure', primary: '#27272A', secondary: '#FAFAFA', accent: '#71717A' },
-  { name: 'Prune & Sensibilité', primary: '#701A75', secondary: '#FDF4FF', accent: '#A21CAF' },
 ];
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onPreviewClient }) => {
@@ -36,9 +36,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onPreviewClient }) =
     displayName: brand.displayName || '',
     tagline: brand.tagline || '',
     logoUrl: brand.logoUrl || '',
-    primaryColor: brand.primaryColor || '#0F766E',
-    secondaryColor: brand.secondaryColor || '#F0FDFA',
-    accentColor: brand.accentColor || '#D97706',
+    primaryColor: brand.primaryColor || '#A66538',
+    secondaryColor: brand.secondaryColor || '#FBF6EF',
+    accentColor: brand.accentColor || '#C68A51',
     clientWelcomeMessage: brand.clientWelcomeMessage || ''
   });
 
@@ -81,20 +81,20 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onPreviewClient }) =
     <div className="max-w-4xl mx-auto space-y-8 pb-12">
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-stone-900 font-serif">
+        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#352219] font-serif">
           Paramètres du Cabinet & Personnalisation Visuelle
         </h2>
-        <p className="mt-1 text-sm text-stone-600">
-          Configurez l'identité visuelle de votre espace coach et personnalisez l'expérience de vos clients.
+        <p className="mt-1 text-sm text-[#756154]">
+          Configurez l'identité visuelle de votre espace coach et personnalisez l'univers graphique présenté à vos clientes.
         </p>
       </div>
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Workspace Brand Information */}
-        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-stone-200/80 shadow-xs space-y-5">
-          <div className="flex items-center gap-2.5 pb-4 border-b border-stone-100">
-            <Building2 className="w-5 h-5 text-stone-700" />
-            <h3 className="font-semibold text-stone-900 text-base">
+        <div className="card-warm p-6 sm:p-7 space-y-5">
+          <div className="flex items-center gap-2.5 pb-4 border-b border-[#F0E5D8]">
+            <Building2 className="w-5 h-5 text-[#A66538]" />
+            <h3 className="font-bold text-[#352219] text-base">
               Identité de l'Espace Professionnel
             </h3>
           </div>
@@ -146,20 +146,20 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onPreviewClient }) =
         </div>
 
         {/* Dynamic Color Palette Customization */}
-        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-stone-200/80 shadow-xs space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-stone-100">
+        <div className="card-warm p-6 sm:p-7 space-y-6">
+          <div className="flex items-center justify-between pb-4 border-b border-[#F0E5D8]">
             <div className="flex items-center gap-2.5">
-              <Palette className="w-5 h-5 text-stone-700" />
-              <h3 className="font-semibold text-stone-900 text-base">
+              <Palette className="w-5 h-5 text-[#A66538]" />
+              <h3 className="font-bold text-[#352219] text-base">
                 Thème Graphique & Couleurs Dynamiques
               </h3>
             </div>
             <button
               type="button"
               onClick={handleReset}
-              className="text-xs text-stone-500 hover:text-stone-800 flex items-center gap-1.5"
+              className="text-xs text-[#756154] hover:text-[#352219] flex items-center gap-1.5 cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#A66538]" />
               <span>Réinitialiser THRYVE</span>
             </button>
           </div>
@@ -319,18 +319,18 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onPreviewClient }) =
           <button
             type="button"
             onClick={onPreviewClient}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold transition-colors"
+            className="btn-ivoire px-4 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
           >
-            <Eye className="w-4 h-4 text-stone-500" />
-            <span>Prévisualiser le questionnaire public</span>
+            <Eye className="w-4 h-4 text-[#A66538]" />
+            <span>Prévisualiser le portail cliente</span>
           </button>
 
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold shadow-xs transition-colors disabled:opacity-50"
+            className="btn-caramel px-5 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
-            <Save className="w-4 h-4" />
+            <Save className="w-4 h-4 text-[#FFFDF9]" />
             <span>{saving ? 'Enregistrement...' : 'Sauvegarder les modifications'}</span>
           </button>
         </div>

@@ -2,12 +2,162 @@
 
 @layer base {
   :root {
-    --brand-primary: #0F766E;
-    --brand-secondary: #F0FDFA;
-    --brand-accent: #D97706;
+    /* Palette Champagne & Caramel */
+    --color-creme: #FBF6EF;
+    --color-champagne: #F3E2CC;
+    --color-champagne-light: #FBF4EB;
+    --color-surface-ivoire: #FFFCF7;
+    --color-caramel: #A66538;
+    --color-caramel-dark: #864A28;
+    --color-caramel-light: #C68A51;
+    --color-text-espresso: #352219;
+    --color-text-secondary: #756154;
+    --color-text-muted: #9E8A7C;
+    --color-border-warm: #E7D7C6;
+    --color-border-subtle: #F0E5D8;
+
+    /* Dynamic Brand Variables defaulted to Champagne & Caramel */
+    --brand-primary: #A66538;
+    --brand-secondary: #FBF6EF;
+    --brand-accent: #C68A51;
+
+    /* Ombres chaudes et diffuses */
+    --shadow-warm-card: 0 8px 24px rgba(112, 73, 40, 0.08), 0 2px 6px rgba(112, 73, 40, 0.04);
+    --shadow-warm-card-hover: 0 14px 32px rgba(112, 73, 40, 0.12), 0 4px 10px rgba(112, 73, 40, 0.06);
+    --shadow-warm-btn: 0 4px 14px rgba(134, 74, 40, 0.22), 0 1px 3px rgba(134, 74, 40, 0.12);
+    --shadow-warm-btn-hover: 0 6px 18px rgba(134, 74, 40, 0.30), 0 2px 5px rgba(134, 74, 40, 0.16);
   }
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #FBF6EF;
+    color: #352219;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Utilitaires du Design System « Champagne & Caramel » */
+.bg-creme {
+  background-color: #FBF6EF;
+}
+
+.bg-champagne {
+  background-color: #F3E2CC;
+}
+
+.bg-champagne-light {
+  background-color: #FBF4EB;
+}
+
+.bg-surface-ivoire {
+  background-color: #FFFCF7;
+}
+
+.text-espresso {
+  color: #352219;
+}
+
+.text-warm-secondary {
+  color: #756154;
+}
+
+.text-warm-muted {
+  color: #9E8A7C;
+}
+
+.border-warm {
+  border-color: #E7D7C6;
+}
+
+.border-warm-subtle {
+  border-color: #F0E5D8;
+}
+
+/* Carte chaude avec léger reflet supérieur et ombre diffuse */
+.card-warm {
+  background-color: #FFFCF7;
+  border: 1px solid #E7D7C6;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(112, 73, 40, 0.08), 0 2px 6px rgba(112, 73, 40, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.card-warm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.card-warm-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(112, 73, 40, 0.12), 0 4px 10px rgba(112, 73, 40, 0.06);
+  border-color: #D9C3AC;
+}
+
+/* Bouton caramel avec relief subtil, dégradé chaud et enfoncement au clic */
+.btn-caramel {
+  background: linear-gradient(135deg, #C68A51 0%, #A66538 52%, #864A28 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(134, 74, 40, 0.25), 0 1px 3px rgba(134, 74, 40, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border: 1px solid #864A28;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-caramel:hover {
+  background: linear-gradient(135deg, #D49960 0%, #B47343 52%, #94532E 100%);
+  box-shadow: 0 6px 18px rgba(134, 74, 40, 0.32), 0 2px 5px rgba(134, 74, 40, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-caramel:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(134, 74, 40, 0.20), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton ivoire secondaire avec bordure chaude */
+.btn-ivoire {
+  background-color: #FFFCF7;
+  color: #352219;
+  border: 1px solid #E7D7C6;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(112, 73, 40, 0.04);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-ivoire:hover {
+  background-color: #F8F1E6;
+  border-color: #D9C3AC;
+  color: #271811;
+  box-shadow: 0 4px 12px rgba(112, 73, 40, 0.08);
+  transform: translateY(-1px);
+}
+
+.btn-ivoire:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(112, 73, 40, 0.06);
+}
+
+/* Badge champagne délicat */
+.badge-champagne {
+  background: #F3E2CC;
+  color: #704323;
+  border: 1px solid #E7D7C6;
+  border-radius: 9999px;
+  font-weight: 600;
 }

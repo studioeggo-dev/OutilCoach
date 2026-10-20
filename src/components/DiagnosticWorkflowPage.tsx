@@ -251,10 +251,10 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
               disabled={step.id > 0 && !profilValide && step.id > etape}
               className={`flex items-center gap-3 p-3 rounded-2xl border text-left transition-all ${
                 actif
-                  ? 'bg-white border-stone-800 shadow-xs ring-1 ring-stone-800'
+                  ? 'bg-[#FFFCF7] border-[#A66538] shadow-[0_4px_14px_rgba(134,74,40,0.15)] ring-1 ring-[#A66538]'
                   : complete
-                  ? 'bg-stone-50 border-stone-200 hover:bg-stone-100/70 text-stone-800'
-                  : 'bg-stone-50/50 border-stone-200/60 opacity-60 cursor-not-allowed'
+                  ? 'bg-[#FBF4EB] border-[#E7D7C6] hover:bg-[#F3E2CC]/40 text-[#704323]'
+                  : 'bg-[#FFFCF7]/50 border-[#E7D7C6]/60 opacity-60 cursor-not-allowed'
               }`}
             >
               <div 
@@ -262,18 +262,18 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                   actif
                     ? 'text-white'
                     : complete
-                    ? 'bg-emerald-100 text-emerald-800'
-                    : 'bg-stone-200 text-stone-500'
+                    ? 'bg-[#F3E2CC] text-[#704323] border border-[#E7D7C6]'
+                    : 'bg-[#F0E5D8] text-[#9E8A7C]'
                 }`}
-                style={actif ? { backgroundColor: brand.primaryColor } : {}}
+                style={actif ? { backgroundColor: brand.primaryColor || '#A66538' } : {}}
               >
                 {complete ? <Check className="w-4 h-4 stroke-[2.5]" /> : <Icon className="w-4 h-4" />}
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-400">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9E8A7C]">
                   Étape {step.id + 1}
                 </p>
-                <p className="text-xs font-bold text-stone-900 truncate">
+                <p className="text-xs font-bold text-[#352219] truncate">
                   {step.titre}
                 </p>
               </div>
@@ -284,12 +284,12 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
 
       {/* STEP 1: PROFIL CLIENT */}
       {etape === 0 && (
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-6">
-          <div className="border-b border-stone-100 pb-4">
-            <h3 className="text-lg font-bold text-stone-900 font-serif">
+        <div className="card-warm p-6 sm:p-8 space-y-6">
+          <div className="border-b border-[#F0E5D8] pb-4">
+            <h3 className="text-xl font-bold text-[#352219] font-serif">
               1. Informations & Profil du Client
             </h3>
-            <p className="text-xs text-stone-500 mt-0.5">
+            <p className="text-xs text-[#756154] mt-0.5">
               Renseignez les coordonnées. Le choix du genre détermine les planches de couleur et de style proposées aux étapes suivantes.
             </p>
           </div>
@@ -412,13 +412,13 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                       key={g}
                       type="button"
                       onClick={() => majChamp('genre', g)}
-                      className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-xs font-bold capitalize transition-all ${
+                      className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-xs font-bold capitalize transition-all cursor-pointer ${
                         estActif
-                          ? 'border-stone-900 bg-stone-900 text-white shadow-xs'
-                          : 'border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700'
+                          ? 'btn-caramel text-white shadow-xs'
+                          : 'border-[#E7D7C6] bg-[#FFFCF7] hover:bg-[#FBF4EB] text-[#756154]'
                       }`}
                     >
-                      {estActif && <Check className="w-3.5 h-3.5" />}
+                      {estActif && <Check className="w-3.5 h-3.5 text-white" />}
                       <span>{g === 'femme' ? 'Femme' : 'Homme'}</span>
                     </button>
                   );
@@ -432,32 +432,32 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
       {/* STEP 2: ASSOCIATION DE COULEUR */}
       {etape === 1 && (
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl p-6 border border-stone-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="card-warm p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-stone-100 text-[11px] font-semibold uppercase text-stone-600 mb-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F3E2CC] border border-[#E7D7C6] text-[11px] font-semibold uppercase text-[#704323] mb-1">
                 Genre : {profil.genre === 'homme' ? 'Homme' : 'Femme'}
               </div>
-              <h3 className="text-xl font-bold text-stone-900 font-serif">
+              <h3 className="text-xl font-bold text-[#352219] font-serif">
                 2. Associations de Couleur
               </h3>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-[#756154]">
                 Sélectionnez une ou plusieurs planches d'harmonies chromatiques pour {profil.prenom} {profil.nom}.
               </p>
             </div>
-            <div className="text-xs font-semibold text-stone-600 bg-stone-100 px-3 py-1.5 rounded-xl self-start sm:self-auto">
+            <div className="text-xs font-semibold text-[#704323] bg-[#FBF4EB] border border-[#E7D7C6] px-3 py-1.5 rounded-xl self-start sm:self-auto">
               {profil.couleurs.length} planche{profil.couleurs.length > 1 ? 's' : ''} sélectionnée{profil.couleurs.length > 1 ? 's' : ''}
             </div>
           </div>
 
           {chargementDocs ? (
-            <div className="py-20 text-center space-y-3 bg-white rounded-2xl border border-stone-200">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-stone-400" />
-              <p className="text-xs text-stone-500">Chargement des planches de couleurs...</p>
+            <div className="py-20 text-center space-y-3 card-warm">
+              <Loader2 className="w-6 h-6 animate-spin mx-auto text-[#A66538]" />
+              <p className="text-xs text-[#756154]">Chargement des planches de couleurs...</p>
             </div>
           ) : docsCouleur.length === 0 ? (
-            <div className="p-12 text-center bg-white rounded-2xl border border-stone-200 space-y-3">
-              <ImageIcon className="w-8 h-8 text-stone-400 mx-auto" />
-              <p className="text-xs text-stone-600 font-semibold">Aucun visuel d'association de couleur disponible.</p>
+            <div className="p-12 text-center card-warm space-y-3">
+              <ImageIcon className="w-8 h-8 text-[#9E8A7C] mx-auto" />
+              <p className="text-xs text-[#352219] font-semibold">Aucun visuel d'association de couleur disponible.</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -468,23 +468,23 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                     <button
                       type="button"
                       onClick={() => basculerSelection('couleurs', doc.fichier)}
-                      className={`relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all ${
+                      className={`relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all cursor-pointer ${
                         selectionne
-                          ? 'border-stone-900 ring-2 ring-stone-900 shadow-md bg-stone-50'
-                          : 'border-stone-200 bg-white hover:border-stone-400 hover:shadow-xs'
+                          ? 'border-[#A66538] ring-2 ring-[#A66538] shadow-[0_8px_20px_rgba(134,74,40,0.18)] bg-[#FDF8F0]'
+                          : 'border-[#E7D7C6] bg-[#FFFCF7] hover:border-[#C68A51] hover:shadow-xs'
                       }`}
                     >
                       <span
                         className={`absolute top-2 right-2 z-10 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           selectionne
-                            ? 'bg-stone-900 text-white opacity-100 shadow-xs'
-                            : 'bg-white/80 text-stone-400 opacity-0 group-hover:opacity-100'
+                            ? 'bg-[#A66538] text-white opacity-100 shadow-xs'
+                            : 'bg-white/80 text-[#9E8A7C] opacity-0 group-hover:opacity-100'
                         }`}
                       >
                         <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                       </span>
 
-                      <div className="aspect-[4/3] w-full bg-stone-100 relative overflow-hidden">
+                      <div className="aspect-[4/3] w-full bg-[#F3E2CC]/30 relative overflow-hidden">
                         <img
                           src={doc.chemin}
                           alt={doc.titre}
@@ -493,8 +493,8 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                         />
                       </div>
 
-                      <div className="p-2.5 text-center border-t border-stone-100">
-                        <p className="text-xs font-semibold text-stone-900 truncate">
+                      <div className="p-2.5 text-center border-t border-[#F0E5D8] bg-[#FFFCF7]">
+                        <p className="text-xs font-semibold text-[#352219] truncate">
                           {doc.titre}
                         </p>
                       </div>
@@ -503,7 +503,7 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                     <button
                       type="button"
                       onClick={() => setApercuModal({ chemin: doc.chemin, titre: doc.titre })}
-                      className="text-center text-[10px] font-semibold text-stone-400 hover:text-stone-800 uppercase tracking-wider transition-colors"
+                      className="text-center text-[10px] font-semibold text-[#A66538] hover:text-[#864A28] uppercase tracking-wider transition-colors cursor-pointer"
                     >
                       Agrandir
                     </button>
@@ -518,32 +518,32 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
       {/* STEP 3: RECETTE DE STYLE */}
       {etape === 2 && (
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl p-6 border border-stone-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="card-warm p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-stone-100 text-[11px] font-semibold uppercase text-stone-600 mb-1">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F3E2CC] border border-[#E7D7C6] text-[11px] font-semibold uppercase text-[#704323] mb-1">
                 Genre : {profil.genre === 'homme' ? 'Homme' : 'Femme'}
               </div>
-              <h3 className="text-xl font-bold text-stone-900 font-serif">
+              <h3 className="text-xl font-bold text-[#352219] font-serif">
                 3. Recettes de Style
               </h3>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-[#756154]">
                 Sélectionnez les lignes de style qui correspondent à la personnalité vestimentaire de {profil.prenom}.
               </p>
             </div>
-            <div className="text-xs font-semibold text-stone-600 bg-stone-100 px-3 py-1.5 rounded-xl self-start sm:self-auto">
+            <div className="text-xs font-semibold text-[#704323] bg-[#FBF4EB] border border-[#E7D7C6] px-3 py-1.5 rounded-xl self-start sm:self-auto">
               {profil.styles.length} recette{profil.styles.length > 1 ? 's' : ''} sélectionnée{profil.styles.length > 1 ? 's' : ''}
             </div>
           </div>
 
           {chargementDocs ? (
-            <div className="py-20 text-center space-y-3 bg-white rounded-2xl border border-stone-200">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-stone-400" />
-              <p className="text-xs text-stone-500">Chargement des recettes de style...</p>
+            <div className="py-20 text-center space-y-3 card-warm">
+              <Loader2 className="w-6 h-6 animate-spin mx-auto text-[#A66538]" />
+              <p className="text-xs text-[#756154]">Chargement des recettes de style...</p>
             </div>
           ) : docsStyle.length === 0 ? (
-            <div className="p-12 text-center bg-white rounded-2xl border border-stone-200 space-y-3">
-              <ImageIcon className="w-8 h-8 text-stone-400 mx-auto" />
-              <p className="text-xs text-stone-600 font-semibold">Aucun visuel de recette de style disponible.</p>
+            <div className="p-12 text-center card-warm space-y-3">
+              <ImageIcon className="w-8 h-8 text-[#9E8A7C] mx-auto" />
+              <p className="text-xs text-[#352219] font-semibold">Aucun visuel de recette de style disponible.</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -554,23 +554,23 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                     <button
                       type="button"
                       onClick={() => basculerSelection('styles', doc.fichier)}
-                      className={`relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all ${
+                      className={`relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all cursor-pointer ${
                         selectionne
-                          ? 'border-stone-900 ring-2 ring-stone-900 shadow-md bg-stone-50'
-                          : 'border-stone-200 bg-white hover:border-stone-400 hover:shadow-xs'
+                          ? 'border-[#A66538] ring-2 ring-[#A66538] shadow-[0_8px_20px_rgba(134,74,40,0.18)] bg-[#FDF8F0]'
+                          : 'border-[#E7D7C6] bg-[#FFFCF7] hover:border-[#C68A51] hover:shadow-xs'
                       }`}
                     >
                       <span
                         className={`absolute top-2 right-2 z-10 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           selectionne
-                            ? 'bg-stone-900 text-white opacity-100 shadow-xs'
-                            : 'bg-white/80 text-stone-400 opacity-0 group-hover:opacity-100'
+                            ? 'bg-[#A66538] text-white opacity-100 shadow-xs'
+                            : 'bg-white/80 text-[#9E8A7C] opacity-0 group-hover:opacity-100'
                         }`}
                       >
                         <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                       </span>
 
-                      <div className="aspect-[4/3] w-full bg-stone-100 relative overflow-hidden">
+                      <div className="aspect-[4/3] w-full bg-[#F3E2CC]/30 relative overflow-hidden">
                         <img
                           src={doc.chemin}
                           alt={doc.titre}
@@ -579,8 +579,8 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                         />
                       </div>
 
-                      <div className="p-2.5 text-center border-t border-stone-100">
-                        <p className="text-xs font-semibold text-stone-900 truncate">
+                      <div className="p-2.5 text-center border-t border-[#F0E5D8] bg-[#FFFCF7]">
+                        <p className="text-xs font-semibold text-[#352219] truncate">
                           {doc.titre}
                         </p>
                       </div>
@@ -589,7 +589,7 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                     <button
                       type="button"
                       onClick={() => setApercuModal({ chemin: doc.chemin, titre: doc.titre })}
-                      className="text-center text-[10px] font-semibold text-stone-400 hover:text-stone-800 uppercase tracking-wider transition-colors"
+                      className="text-center text-[10px] font-semibold text-[#A66538] hover:text-[#864A28] uppercase tracking-wider transition-colors cursor-pointer"
                     >
                       Agrandir
                     </button>
@@ -604,13 +604,13 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
       {/* STEP 4: SYNTHÈSE & EXPORT */}
       {etape === 3 && (
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-stone-100 gap-3">
+          <div className="card-warm p-6 sm:p-8 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#F0E5D8] gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#9E8A7C]">
                   Fiche de restitution
                 </p>
-                <h3 className="text-2xl font-bold text-stone-900 font-serif">
+                <h3 className="text-2xl font-bold text-[#352219] font-serif">
                   {profil.prenom} {profil.nom}
                 </h3>
               </div>
@@ -620,13 +620,12 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
                   type="button"
                   onClick={sauvegarder}
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-opacity hover:opacity-95"
-                  style={{ backgroundColor: brand.primaryColor }}
+                  className="btn-caramel px-5 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
                 >
                   {isSaving ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                   ) : (
-                    <Download className="w-4 h-4" />
+                    <Download className="w-4 h-4 text-white" />
                   )}
                   <span>Sauvegarder & Télécharger</span>
                 </button>
@@ -642,26 +641,26 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
             )}
 
             {/* Coordonnées */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-stone-50 border border-stone-100 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-[#FBF4EB] border border-[#E7D7C6] text-xs">
               <div>
-                <span className="text-[10px] font-semibold uppercase text-stone-400 block">Âge</span>
-                <span className="font-medium text-stone-800">{profil.age || '—'} ans</span>
+                <span className="text-[10px] font-semibold uppercase text-[#9E8A7C] block">Âge</span>
+                <span className="font-semibold text-[#352219]">{profil.age || '—'} ans</span>
               </div>
               <div>
-                <span className="text-[10px] font-semibold uppercase text-stone-400 block">Genre</span>
-                <span className="font-medium text-stone-800 capitalize">{profil.genre}</span>
+                <span className="text-[10px] font-semibold uppercase text-[#9E8A7C] block">Genre</span>
+                <span className="font-semibold text-[#352219] capitalize">{profil.genre}</span>
               </div>
               <div>
-                <span className="text-[10px] font-semibold uppercase text-stone-400 block">Téléphone</span>
-                <span className="font-medium text-stone-800">{profil.telephone || '—'}</span>
+                <span className="text-[10px] font-semibold uppercase text-[#9E8A7C] block">Téléphone</span>
+                <span className="font-semibold text-[#352219]">{profil.telephone || '—'}</span>
               </div>
               <div>
-                <span className="text-[10px] font-semibold uppercase text-stone-400 block">Email</span>
-                <span className="font-medium text-stone-800 truncate block">{profil.email || '—'}</span>
+                <span className="text-[10px] font-semibold uppercase text-[#9E8A7C] block">Email</span>
+                <span className="font-semibold text-[#352219] truncate block">{profil.email || '—'}</span>
               </div>
               <div className="col-span-2 sm:col-span-4">
-                <span className="text-[10px] font-semibold uppercase text-stone-400 block">Adresse & Ville</span>
-                <span className="font-medium text-stone-800">
+                <span className="text-[10px] font-semibold uppercase text-[#9E8A7C] block">Adresse & Ville</span>
+                <span className="font-semibold text-[#352219]">
                   {[profil.adresse, profil.codePostal, profil.ville].filter(Boolean).join(', ') || '—'}
                 </span>
               </div>
@@ -670,31 +669,31 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
             {/* Sélections Couleurs & Styles */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Couleurs */}
-              <div className="p-5 rounded-2xl border border-stone-200/80 bg-white space-y-3">
+              <div className="p-5 rounded-2xl border border-[#E7D7C6] bg-[#FFFCF7] shadow-xs space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-stone-900 text-sm font-serif">
+                  <h4 className="font-bold text-[#352219] text-sm font-serif">
                     Associations de Couleur
                   </h4>
-                  <span className="text-[11px] font-semibold text-stone-500">
+                  <span className="text-[11px] font-semibold text-[#704323] bg-[#F3E2CC] px-2 py-0.5 rounded-full border border-[#E7D7C6]">
                     {profil.couleurs.length} planche{profil.couleurs.length > 1 ? 's' : ''}
                   </span>
                 </div>
 
                 <div className="space-y-2">
                   {profil.couleurs.length === 0 ? (
-                    <p className="text-xs text-stone-400 italic">Aucune association sélectionnée</p>
+                    <p className="text-xs text-[#9E8A7C] italic">Aucune association sélectionnée</p>
                   ) : (
                     profil.couleurs.map((f) => {
                       const titre = getDocTitre(docsCouleur, f);
                       const chemin = getDocChemin(docsCouleur, f);
                       return (
-                        <div key={f} className="flex items-center gap-3 p-2 rounded-xl bg-stone-50 border border-stone-100">
+                        <div key={f} className="flex items-center gap-3 p-2 rounded-xl bg-[#FBF4EB] border border-[#E7D7C6]">
                           {chemin && (
                             <img src={chemin} alt={titre} className="w-10 h-8 rounded-lg object-cover shrink-0" />
                           )}
                           <div className="min-w-0 flex-1">
-                            <p className="text-xs font-semibold text-stone-900 truncate">{titre}</p>
-                            <p className="text-[10px] text-stone-400 truncate">{f}</p>
+                            <p className="text-xs font-semibold text-[#352219] truncate">{titre}</p>
+                            <p className="text-[10px] text-[#9E8A7C] truncate">{f}</p>
                           </div>
                         </div>
                       );
@@ -704,31 +703,31 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
               </div>
 
               {/* Styles */}
-              <div className="p-5 rounded-2xl border border-stone-200/80 bg-white space-y-3">
+              <div className="p-5 rounded-2xl border border-[#E7D7C6] bg-[#FFFCF7] shadow-xs space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-stone-900 text-sm font-serif">
+                  <h4 className="font-bold text-[#352219] text-sm font-serif">
                     Recettes de Style
                   </h4>
-                  <span className="text-[11px] font-semibold text-stone-500">
+                  <span className="text-[11px] font-semibold text-[#704323] bg-[#F3E2CC] px-2 py-0.5 rounded-full border border-[#E7D7C6]">
                     {profil.styles.length} recette{profil.styles.length > 1 ? 's' : ''}
                   </span>
                 </div>
 
                 <div className="space-y-2">
                   {profil.styles.length === 0 ? (
-                    <p className="text-xs text-stone-400 italic">Aucune recette sélectionnée</p>
+                    <p className="text-xs text-[#9E8A7C] italic">Aucune recette sélectionnée</p>
                   ) : (
                     profil.styles.map((f) => {
                       const titre = getDocTitre(docsStyle, f);
                       const chemin = getDocChemin(docsStyle, f);
                       return (
-                        <div key={f} className="flex items-center gap-3 p-2 rounded-xl bg-stone-50 border border-stone-100">
+                        <div key={f} className="flex items-center gap-3 p-2 rounded-xl bg-[#FBF4EB] border border-[#E7D7C6]">
                           {chemin && (
                             <img src={chemin} alt={titre} className="w-10 h-8 rounded-lg object-cover shrink-0" />
                           )}
                           <div className="min-w-0 flex-1">
-                            <p className="text-xs font-semibold text-stone-900 truncate">{titre}</p>
-                            <p className="text-[10px] text-stone-400 truncate">{f}</p>
+                            <p className="text-xs font-semibold text-[#352219] truncate">{titre}</p>
+                            <p className="text-[10px] text-[#9E8A7C] truncate">{f}</p>
                           </div>
                         </div>
                       );
@@ -742,14 +741,14 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
       )}
 
       {/* Footer Navigation controls */}
-      <div className="flex items-center justify-between pt-4 border-t border-stone-200">
+      <div className="flex items-center justify-between pt-4 border-t border-[#E7D7C6]">
         <button
           type="button"
           onClick={() => setEtape((e) => Math.max(0, e - 1))}
           disabled={etape === 0}
-          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-stone-600 hover:text-stone-900 disabled:opacity-30 disabled:hover:text-stone-600"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#756154] hover:text-[#352219] disabled:opacity-30 cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-[#A66538]" />
           <span>Étape précédente</span>
         </button>
 
@@ -758,11 +757,10 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
             type="button"
             onClick={() => setEtape((e) => Math.min(3, e + 1))}
             disabled={!profilValide}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-opacity hover:opacity-95 disabled:opacity-40"
-            style={{ backgroundColor: brand.primaryColor }}
+            className="btn-caramel px-6 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer disabled:opacity-40"
           >
             <span>Continuer</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 text-[#FFFDF9]" />
           </button>
         ) : (
           <button
@@ -770,7 +768,7 @@ export const DiagnosticWorkflowPage: React.FC<Props> = ({ onGoToClients, initial
             onClick={() => {
               if (onGoToClients) onGoToClients();
             }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 text-xs font-semibold shadow-2xs"
+            className="btn-ivoire px-5 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
           >
             <span>Consulter les fiches clientes</span>
           </button>

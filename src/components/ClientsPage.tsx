@@ -199,52 +199,51 @@ export const ClientsPage: React.FC<ClientsPageProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-stone-900 font-serif">
-            Gestion des Clientes & Questionnaires de Diagnostic
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#352219] font-serif">
+            Gestion des Clientes & Fiches de Diagnostic
           </h2>
-          <p className="mt-1 text-sm text-stone-600">
-            Créez vos fiches clientes, transmettez-leur des liens publics de diagnostic sécurisés et consultez leurs réponses.
+          <p className="mt-1 text-sm text-[#756154]">
+            Créez vos fiches clientes, consultez leurs diagnostics réalisés en atelier et téléchargez leurs bilans personnalisés.
           </p>
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-white text-xs font-semibold shadow-xs transition-opacity hover:opacity-95 self-start sm:self-auto"
-          style={{ backgroundColor: brand.primaryColor }}
+          className="btn-caramel px-4 py-2.5 text-xs inline-flex items-center gap-2 self-start sm:self-auto cursor-pointer"
         >
-          <UserPlus className="w-4 h-4" />
+          <UserPlus className="w-4 h-4 text-[#FFFDF9]" />
           <span>Ajouter une cliente</span>
         </button>
       </div>
 
       {/* Info notice about client access model */}
-      <div className="bg-stone-100/70 border border-stone-200/80 rounded-2xl p-4 flex items-center gap-3 text-xs text-stone-600">
-        <Info className="w-4 h-4 text-stone-500 shrink-0" />
+      <div className="bg-[#FBF4EB] border border-[#E7D7C6] rounded-2xl p-4 flex items-center gap-3 text-xs text-[#756154]">
+        <Info className="w-4 h-4 text-[#A66538] shrink-0" />
         <p>
-          <strong>Modèle d'accès THRYVE :</strong> vos clientes ne créent aucun compte et ne disposent d'aucun mot de passe. Elles accèdent à leur questionnaire via le lien public sécurisé généré ci-dessous. Dès validation, leurs réponses vous sont transmises directement.
+          <strong className="text-[#352219]">Accompagnement en cabinet :</strong> les fiches clientes centralisent les coordonnées et l'historique des sélections de couleurs et de styles pour chaque séance de conseil en image.
         </p>
       </div>
 
       {/* Controls / Search */}
-      <div className="bg-white p-4 rounded-2xl border border-stone-200/80 shadow-xs flex items-center justify-between gap-4">
+      <div className="card-warm p-4 flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9E8A7C]" />
           <input
             type="text"
             placeholder="Rechercher par nom, prénom ou email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-800"
+            className="w-full pl-9 pr-4 py-2 text-xs border border-[#E7D7C6] bg-[#FFFCF7] rounded-xl text-[#352219] placeholder:text-[#9E8A7C] focus:outline-hidden focus:ring-2 focus:ring-[#A66538]/30 focus:border-[#A66538]"
           />
         </div>
 
-        <div className="text-xs text-stone-500 font-medium">
+        <div className="text-xs text-[#756154] font-semibold">
           {filteredItems.length} {filteredItems.length > 1 ? 'fiches clientes' : 'fiche cliente'}
         </div>
       </div>
 
       {/* Clients Table */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 shadow-xs overflow-hidden">
+      <div className="card-warm overflow-hidden">
         {loading ? (
           <div className="p-12 text-center text-stone-400 text-xs">
             Chargement des dossiers clientes et des assignations Firestore...

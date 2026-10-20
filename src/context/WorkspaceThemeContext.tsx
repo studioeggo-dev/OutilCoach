@@ -10,14 +10,14 @@ interface WorkspaceThemeContextType {
   cssVariables: Record<string, string>;
 }
 
-// Default THRYVE platform branding (Neutral, Premium, Human SaaS)
+// Default THRYVE platform branding (Champagne & Caramel Signature)
 export const DEFAULT_THRYVE_BRAND: WorkspaceBranding = {
   displayName: 'Espace Coaching THRYVE',
-  tagline: 'Grow beyond limits',
-  primaryColor: '#0F766E', // Forest / deep teal
-  secondaryColor: '#F0FDFA', // Soft tinted surface
-  accentColor: '#D97706', // Warm amber
-  clientWelcomeMessage: 'Bienvenue sur votre portail d\'accompagnement et de diagnostic.'
+  tagline: 'Conseil en image & style personnel',
+  primaryColor: '#A66538', // Caramel signature
+  secondaryColor: '#FBF6EF', // Fond crème
+  accentColor: '#C68A51', // Accent lumineux champagne & caramel
+  clientWelcomeMessage: 'Bienvenue sur votre portail d\'accompagnement et de diagnostic en image.'
 };
 
 const WorkspaceThemeContext = createContext<WorkspaceThemeContextType | undefined>(undefined);

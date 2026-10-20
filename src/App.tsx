@@ -93,7 +93,7 @@ export default function App() {
   // 3. Authenticated Coach Workspace with dynamic Workspace Theme
   return (
     <WorkspaceThemeProvider currentWorkspace={workspace}>
-      <div className="min-h-screen bg-stone-50 flex flex-col lg:flex-row antialiased">
+      <div className="min-h-screen bg-[#FBF6EF] text-[#352219] flex flex-col lg:flex-row antialiased">
         {/* Navigation Sidebar */}
         <Sidebar
           currentTab={currentTab}
@@ -126,6 +126,24 @@ export default function App() {
                 onPreviewClient={() => {
                   setActiveClientParams(null);
                   setClientPortalActive(true);
+                }}
+                onStartDiagnosticForClient={(client) => {
+                  setDiagnosticClient({
+                    id: client.id,
+                    nom: client.lastName,
+                    prenom: client.firstName,
+                    email: client.email,
+                    telephone: client.phone || '',
+                    adresse: client.adresse || '',
+                    codePostal: client.codePostal || '',
+                    ville: client.ville || '',
+                    genre: (client.genre as Genre) || '',
+                    age: client.age || '',
+                    couleurs: client.couleurs || [],
+                    styles: client.styles || [],
+                    creeLe: client.createdAt
+                  });
+                  setCurrentTab('diagnostic');
                 }}
               />
             )}

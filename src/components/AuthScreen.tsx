@@ -52,28 +52,31 @@ export const AuthScreen: React.FC<AuthModalOrScreenProps> = ({ onPreviewClient }
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FBF6EF] text-[#352219] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Brand Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="inline-flex items-center gap-2 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center font-bold tracking-tight text-lg shadow-sm">
+        <div className="inline-flex items-center gap-2.5 mb-3">
+          <div 
+            className="w-10 h-10 rounded-xl text-white flex items-center justify-center font-bold tracking-tight text-lg shadow-[0_4px_14px_rgba(134,74,40,0.25)]"
+            style={{ background: 'linear-gradient(135deg, #C68A51 0%, #A66538 50%, #864A28 100%)' }}
+          >
             T
           </div>
-          <span className="text-2xl font-bold tracking-wider text-stone-900 font-serif">THRYVE</span>
+          <span className="text-2xl font-extrabold tracking-wider text-[#352219] font-serif">THRYVE</span>
         </div>
-        <p className="text-xs uppercase tracking-widest text-stone-500 font-medium">
-          Grow beyond limits
+        <p className="text-xs uppercase tracking-widest text-[#A66538] font-bold">
+          Conseil en image & style personnel
         </p>
-        <h2 className="mt-6 text-xl sm:text-2xl font-semibold tracking-tight text-stone-900">
-          {isSignUp ? 'Créer un espace professionnel coach' : 'Accéder à votre espace THRYVE'}
+        <h2 className="mt-6 text-xl sm:text-2xl font-bold tracking-tight text-[#352219] font-serif">
+          {isSignUp ? 'Créer un espace professionnel coach' : 'Accéder à votre atelier THRYVE'}
         </h2>
-        <p className="mt-2 text-sm text-stone-600">
-          Plateforme SaaS de diagnostics et de transformation individuelle
+        <p className="mt-2 text-sm text-[#756154]">
+          Espace dédié aux coachs en image pour la réalisation et le suivi des diagnostics
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-6 shadow-sm border border-stone-200/80 rounded-2xl sm:px-10">
+        <div className="card-warm py-8 px-6 sm:px-10">
           {/* Google SSO */}
           <div>
             <button
@@ -183,10 +186,10 @@ export const AuthScreen: React.FC<AuthModalOrScreenProps> = ({ onPreviewClient }
             <button
               type="submit"
               disabled={submitting || loading}
-              className="w-full flex justify-center items-center gap-2 py-2.5 px-4 border border-transparent rounded-xl shadow-xs text-sm font-medium text-white bg-stone-900 hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-900 transition-colors disabled:opacity-50"
+              className="w-full btn-caramel py-3 px-4 text-sm inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              {submitting ? 'Vérification en cours...' : isSignUp ? 'Créer mon compte Coach' : 'Se connecter'}
-              <ArrowRight className="w-4 h-4" />
+              <span>{submitting ? 'Vérification en cours...' : isSignUp ? 'Créer mon compte Coach' : 'Se connecter'}</span>
+              <ArrowRight className="w-4 h-4 text-[#FFFDF9]" />
             </button>
           </form>
 
